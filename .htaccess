@@ -1,0 +1,8 @@
+Options +FollowSymLinks
+Options -Indexes
+DirectoryIndex index.html index.php
+RewriteEngine On
+RewriteCond $1 !^(index\.php|images|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ /crud-codeigniter/index.php/$1 [L,QSA]
