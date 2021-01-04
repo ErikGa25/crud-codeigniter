@@ -11,6 +11,7 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('user/main');
+        $data = array("data", $this->User_model->getUsers());
+		$this->load->view('user/main', $data);
 	}
 }

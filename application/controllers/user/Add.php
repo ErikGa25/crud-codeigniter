@@ -21,12 +21,23 @@ class Add extends CI_Controller {
 		$password = $this->input->post('password');
 		$repeatPassword = $this->input->post('repeatPassword');
 
-		$data = array(
-			"fullName" => $fullName,
-			"email"    => $email,
-			"password" => md5($password)
-		);
+		$this->form_validation->set_rules('fullName', 'Nombre completo', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[user.email]');
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
+		$this->form_validation->set_rules('repeatPassword', 'Confirmar password', 'required|matches[password]');
 
-		$this->User_model->save($data);
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('user/add');
+		} else {
+			$data = array(
+				"fullName" => $fullName,
+				"email"    => $email,
+				"password" => md5($password)
+			);
+	
+			$this->User_model->save($data);
+			$this->session->set_flashdata('success', 'Se guardo correctamente el usuario.');
+			redirect(base_url().'usuarios');
+		}
 	}
 }
