@@ -30,7 +30,7 @@ class Add extends CI_Controller {
 			$this->load->view('user/add');
 		} else {
 			$data = array(
-				"fullName" => $fullName,
+				"full_name" => $fullName,
 				"email"    => $email,
 				"password" => md5($password)
 			);
